@@ -1,0 +1,83 @@
+#로그파일남기기
+#schema-${platform}.sql 파일과 data-${platform}.sql 파일을 읽어 드려서 스키마및 데이터 생성
+#파일명 예 : schema-postgresql.sql, data-postgresql.sql
+#spring.datasource.platform=postgresql
+
+# profiles defulat : dev mode
+logging:
+  level:
+    sso:
+      mac:
+        alcoholic: DEBUG
+    org:
+      springframework: INFO
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+spring:
+  output:
+    ansi:
+      enabled: always
+--- # datasource
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+
+--- # JPA
+Spring:
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
+    hibernate:
+      ddl-auto: create-drop
+    generate-ddl: true
+    show-sql: true
+--- # SERVER port
+server:
+  port: 8080
+
+--- # thymeleaf
+spring:
+  thymeleaf:
+    cache: false
+
+---
+#profiles = prod
+---
+spring:
+  profiles: prod
+  output:
+    ansi:
+      enabled: always
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    generate-ddl: false
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/springboot
+#    username: lake
+#    password: zxasqw12
+logging:
+  level:
+    sso:
+      mac:
+        alcoholic: INFO
+    org:
+      springframework: INFO
+server:
+  port: 80
