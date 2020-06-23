@@ -4,11 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import sso.mac.alcoholic.comm.entity.AccountRole;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class AccountDTO implements Serializable {
     private static final long serialVersionUID = -7385452766874106083L;
@@ -16,6 +19,6 @@ public class AccountDTO implements Serializable {
     private String password;
     private String username;
     private String nickname;
-    private String phoneNumber;
-    private String role;
+    private String email;
+    private Set<AccountRole> roles;
 }

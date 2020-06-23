@@ -8,9 +8,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import sso.mac.alcoholic.comm.constants.AccountConstants;
 import sso.mac.alcoholic.comm.entity.Account;
+import sso.mac.alcoholic.comm.entity.AccountRole;
 import sso.mac.alcoholic.comm.entity.base.Used;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,8 +29,8 @@ public class AccountRepositoryTest {
                                 .username("hosu")
                                 .password("dasdsadas")
                                 .nickname("lake")
-                                .phoneNumber("01091850581")
-                                .role(AccountConstants.roleAdmin)
+                                .email("hosu.choi@miracom.co.kr")
+                                .roles(Set.of(AccountRole.ADMIN,AccountRole.USER))
                                 .build();
 
         Account savedAccount = repository.save(account);

@@ -5,11 +5,9 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import sso.mac.alcoholic.comm.entity.base.BaseEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Data
@@ -33,9 +31,11 @@ public class Account extends BaseEntity implements Serializable {
     @Column(length = 50)
     private String nickname;
 
-    @Column(length = 20)
-    private String phoneNumber;
+    @Column(length = 30)
+    private String email;
 
     @Column(length = 10)
-    private String role;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Enumerated(value = EnumType.STRING)
+    private Set<AccountRole> roles;
 }

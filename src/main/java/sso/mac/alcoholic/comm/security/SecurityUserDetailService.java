@@ -13,8 +13,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import sso.mac.alcoholic.comm.account.AccountRepository;
 import sso.mac.alcoholic.comm.entity.Account;
+import sso.mac.alcoholic.comm.entity.AccountRole;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class SecurityUserDetailService implements UserDetailsService {
@@ -26,11 +28,13 @@ public class SecurityUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Account> oAccount = repository.findByUsername(username);
         Account account = oAccount.orElseThrow(() -> new UsernameNotFoundException(username));
-        return new User(account.getUsername(), account.getPassword(), authorities(account.getRole()));
+        return new User(account.getUsername(), account.getPassword(), authorities(account.getRoles()));
     }
 
-    private Collection<? extends GrantedAuthority> authorities(String role) {
-        return new HashSet<>(Arrays.asList(new SimpleGrantedAuthority(role)));
+    private Collection<? extends GrantedAuthority> authorities(Set<AccountRole> roles) {
+        return roles.stream()
+                .map(r -> new SimpleGrantedAuthority("ROLE_" + r.name()))
+                .collect(Collectors.toSet());
     }
 
     @Bean

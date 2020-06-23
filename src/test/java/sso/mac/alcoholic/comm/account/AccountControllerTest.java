@@ -20,8 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(AccountController.class)
-//@DataJpaTest
-//@SpringBootTest
 public class AccountControllerTest {
 
     @Autowired

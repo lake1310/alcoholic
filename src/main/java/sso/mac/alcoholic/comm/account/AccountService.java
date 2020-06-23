@@ -24,6 +24,7 @@ public class AccountService {
     }
 
     public Account createAccount(AccountDTO accountDTO){
+        accountDTO.setPassword(passwordEncoder.encode(accountDTO.getPassword()));
         Account account = MapperUtil.getInstance().convertValue(accountDTO, Account.class);
 
         Account savedAccount = repository.save(account);
