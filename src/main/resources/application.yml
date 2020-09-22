@@ -66,6 +66,10 @@ spring:
 #  mvc:
 #    static-path-pattern: /static/**
 
+--- # oAuth ID / pwd
+client-id: hirit
+client-secret: hiritpw
+
 ---
 #profiles = prod
 ---

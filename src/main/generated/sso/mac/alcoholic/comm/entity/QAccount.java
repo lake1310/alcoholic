@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -27,15 +28,15 @@ public class QAccount extends EntityPathBase<Account> {
     //inherited
     public final StringPath createdBy = _super.createdBy;
 
+    public final StringPath email = createString("email");
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final StringPath nickname = createString("nickname");
 
     public final StringPath password = createString("password");
 
-    public final StringPath phoneNumber = createString("phoneNumber");
-
-    public final EnumPath<Role> role = createEnum("role", Role.class);
+    public final SetPath<AccountRole, EnumPath<AccountRole>> roles = this.<AccountRole, EnumPath<AccountRole>>createSet("roles", AccountRole.class, EnumPath.class, PathInits.DIRECT2);
 
     //inherited
     public final StringPath updated = _super.updated;

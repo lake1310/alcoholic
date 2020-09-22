@@ -7,6 +7,7 @@ import sso.mac.alcoholic.comm.entity.Account;
 import sso.mac.alcoholic.comm.util.MapperUtil;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -33,5 +34,10 @@ public class AccountService {
 
     public List<Account> accountList() {
         return repository.findAll();
+    }
+
+    public Account getUser(String username) {
+        Optional<Account> byUsername = repository.findByUsername(username);
+        return byUsername.orElseThrow(() -> new NoSuchElementException());
     }
 }
